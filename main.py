@@ -13,6 +13,7 @@ from PyQt5.QtGui import QFont, QPalette, QColor
 from PyQt5.QtWidgets import QLabel, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect
 import datetime
 
+
 class Process_Thread(QThread):
     signal = QtCore.pyqtSignal(list)
 
