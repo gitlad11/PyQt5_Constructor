@@ -12,7 +12,7 @@ from PyQt5.QtCore import QThread
 from PyQt5.QtGui import QFont, QPalette, QColor
 from PyQt5.QtWidgets import QLabel, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect
 import datetime
-
+import ctypes
 
 class Process_Thread(QThread):
     signal = QtCore.pyqtSignal(list)
@@ -102,7 +102,9 @@ class Window(Qt.QWidget):
         self.setPalette(self.red_palette)
         self.layout.addWidget(self.view)
         self.view.setLabel('left', 'Percentage', color="white", size='8pt', units='%')
-        self.resize(360, 300)
+        self.resize(400, 320)
+        self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
+    
 
     def onchange(self, s):
 
