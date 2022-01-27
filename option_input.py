@@ -37,7 +37,8 @@ class QInput(QFrame):
                            } 
                            QLineEdit { 
                                border: 1px inset gray;
-                               margin: 0px 7px 0px 0px
+                               margin: 0px 7px 0px 0px;
+                               background-color: #fff;
                            } 
                            QLabel {
                                font-weight: bold
@@ -76,7 +77,8 @@ class QFourInputs(QFrame):
                            } 
                            QLineEdit { 
                                border: 1px inset gray;
-                               margin: 0px 7px 0px 0px
+                               margin: 0px 7px 0px 0px;
+                               background-color: #fff;
                            } 
                            QLabel {
                                font-weight: bold
@@ -126,7 +128,8 @@ class QTwoInputs(QFrame):
                            } 
                            QLineEdit { 
                                border: 1px inset gray;
-                               margin: 0px 7px 0px 0px
+                               margin: 0px 7px 0px 0px;
+                               background-color: #fff;
                            }
                            QLabel {
                                font-weight: bold
