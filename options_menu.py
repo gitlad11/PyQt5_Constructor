@@ -1,21 +1,14 @@
 import os, sys
 sys.path.insert(0, os.path.abspath("."))
-
 from PyQt5 import Qt, QtCore
-
 import sys
 import threading
 import psutil
 from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QFont, QPalette, QColor, QCursor, QIcon, QPixmap
 from PyQt5.QtWidgets import QLabel, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect, QWidget, QListWidget, QListView
-
-
 from menu_tab import QMenuOption
 
-
-
-                     
 
 class Options(QWidget):
 
@@ -23,7 +16,9 @@ class Options(QWidget):
         super().__init__(parent)
         self.resize(340, 1200)
         self.o_menu = QMenuOption()
-        
+        self.o_menu1 = QMenuOption()
+        self.o_menu2 = QMenuOption()
+
         self.gray_palette = self.palette()
         self.gray_palette.setColor(QPalette.Window, QColor(50, 50, 50))
         
@@ -35,7 +30,9 @@ class Options(QWidget):
         layout2 = Qt.QVBoxLayout(self)
         layout3 = Qt.QVBoxLayout(self)
         layout.addWidget(self.o_menu)
-    
+        layout.addWidget(self.o_menu1)
+        layout.addWidget(self.o_menu2)
+
         layout2.addLayout(layout)
         layout2.addLayout(layout3)
         self.setLayout(layout2)

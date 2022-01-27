@@ -16,7 +16,7 @@ class QIcon_Button(Qt.QPushButton):
         if self.toolTip:
             self.setToolTip(str(self.toolTip))
             self.setToolTipDuration(4000)
-            self.setToolTip 
+
 
         self.setStyleSheet("""QToolTip { 
                            background-color: rgba(50, 50, 50, 1); 
