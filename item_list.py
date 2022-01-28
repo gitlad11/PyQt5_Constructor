@@ -7,22 +7,34 @@ import psutil
 from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QFont, QPalette, QColor, QCursor, QIcon, QPixmap
 from PyQt5.QtWidgets import QLabel, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect, QWidget, QListWidget, QListView
+import numpy as np
 
+
+class QListItemItem(QFrame):
+    def __init__(self, item):
+        super().__init__()
+        self.item  = item
+        self.layout = Qt.QHBoxLayout(self)
+        self.setStyleSheet(""" QFrame { border : 1px solid gray; } """)
+        self.label = QLabel(str(self.item))
+        self.label.setFont(QFont('Helvetica', 9))
+        self.layout.addWidget(self.label)
 
 
 class QListItem(QWidget):
-    def __init__(self, title, icon=None):
+    def __init__(self, title, items, icon=None):
         super().__init__()
         self.title = title
+        self.items = items
         self.icon = icon
-        self.active = True
+        self.active = False
 
         self.setCursor(QCursor(QtCore.Qt.PointingHandCursor))
         self.setStyleSheet("border: 1px 1px 0px 0px;")
         self.resize(220, 18)
         self.setWindowOpacity(0.6)
 
-        self.layout = Qt.QHBoxLayout(self)
+        self.layout = Qt.QVBoxLayout(self)
         self.layout.setContentsMargins(0,0,0,0)
         self.Icon = QIcon()
         self.pix = QPixmap('left-a.png')
@@ -33,22 +45,24 @@ class QListItem(QWidget):
         self.btn.setText(str(self.title))
         self.btn.setFont(QFont("Helvetica", 11))
 
-    
+
         self.btn.setFixedWidth(220)
-        self.btn.setStyleSheet("color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px, 5px, 5px, 5px; text-align: left; ")
+        self.btn.setStyleSheet("color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left; ")
         self.btn.setIcon(self.Icon)
         self.btn.setLayoutDirection(QtCore.Qt.RightToLeft)
+        
         self.layout.addWidget(self.btn)
+
         self.layout.setAlignment(QtCore.Qt.AlignCenter)
 
 
     def event(self, e):
         if e.type() == QtCore.QEvent.Enter:
             self.btn.setStyleSheet(
-                "background-color: #dbdbdb; color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px, 5px, 5px, 5px; text-align: left;")
+                "background-color: #dbdbdb; color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left;")
         elif e.type() == QtCore.QEvent.Leave:
             self.btn.setStyleSheet(
-                "color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px, 5px, 5px, 5px; text-align: left;")
+                "color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left;")
 
         return QWidget.event(self, e)
 
@@ -58,7 +72,10 @@ class QListItem(QWidget):
                 self.pix.scaled(QSize(19, 19))
                 self.Icon.addPixmap(self.pix)
                 self.btn.setIcon(self.Icon)
+                
+                self.layout.itemAt(1).widget().deleteLater()
                 self.active = False
+
             else:
                 self.pix = QPixmap('down-a.png')
                 self.pix.scaled(QSize(19, 19))
@@ -66,6 +83,12 @@ class QListItem(QWidget):
                 self.btn.setIcon(self.Icon)
                 self.active = True
 
+                self.menu = QListWidget()
+                self.menu.addItems(self.items)
+                self.menu.setFixedWidth(220)
+                self.layout.addWidget(self.menu)
+
+    
 
 
 class QList(QWidget):
@@ -73,10 +96,12 @@ class QList(QWidget):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
 
-        self.btn = QListItem("stupid things")
-        self.btn2 = QListItem("clever things")
-        self.btn3 = QListItem("funny things")
-        self.btn4 = QListItem("fuck off")
+        self.list = ["item 1", "item 2", "item 3"]
+        self.l = np.array(["item 1", "item 2", "item 3"])
+        self.btn = QListItem("stupid things", items=self.list)
+        self.btn2 = QListItem("clever things", items=self.list)
+        self.btn3 = QListItem("funny things", items=self.list)
+        self.btn4 = QListItem("fuck off", items=self.list)
   
         self.layout.addWidget(self.btn)
         self.layout.addWidget(self.btn2)
@@ -86,7 +111,8 @@ class QList(QWidget):
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.layout.setContentsMargins(0,0,0,0)
         self.setLayout(self.layout)
-
+        self.setFixedHeight(900)
+        self.setStyleSheet(""" QWidget { background-color: #fff; } """)
 
 
 if __name__ == "__main__":
