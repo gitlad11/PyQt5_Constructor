@@ -31,10 +31,10 @@ class QDirectoryBtn(QFrame):
         else:
             self.image = Qt.QImage("script-dir.png")     
         self.pix = QPixmap.fromImage(self.image)
-        self.pix.scaled(QSize(85, 85), QtCore.Qt.KeepAspectRatio)
+        self.pix.scaled(QSize(55, 55), QtCore.Qt.KeepAspectRatio)
         self.Icon.addPixmap(self.pix)
         self.btn.setIcon(self.Icon)
-        self.btn.setIconSize(QSize(85, 85))
+        self.btn.setIconSize(QSize(55, 55))
 
         self.label = QLabel(str(self.name))
         self.label.setFont(QFont("Helvetica", 10))
@@ -46,7 +46,7 @@ class QDirectoryBtn(QFrame):
         self.layout.addWidget(self.label)
         self.setLayout(self.layout)
         self.setStyleSheet(""" QFrame { border: 0px; } """)
-        
+
     def event(self, e):
         if e.type() == QtCore.QEvent.Enter:
             self.setStyleSheet(""" QFrame { border: 1px solid gray; border-radius: 4px 4px 4px 4px; } """)
@@ -66,7 +66,7 @@ class QDirectoryList(QFrame):
             { "name" : "script-dir.png", "type" : "file" }
         ]
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignCenter)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(80, 80, 80, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(70, 70, 70, 1);
                            border-radius: 0px 0px 0px 0px; 
                             }""")
 
@@ -97,7 +97,8 @@ class QCurrent_dir(QFrame):
         self.layout.addWidget(self.directory)
         self.layout.addWidget(self.label)
         
-        self.layout.setContentsMargins(10, 0, 10, 0)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
 
@@ -106,12 +107,12 @@ class QDirectory(QFrame):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
         self.dir = ""
-        self.setStyleSheet(""" QFrame{ background-color: rgba(80, 80, 80, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(70, 70, 70, 1);
                            border-radius: 0px 0px 0px 0px; 
                            }""")
-        self.resize(1200, 240)
-        self.setMaximumHeight(240)
-        self.setMinimumHeight(240)                   
+        self.resize(1200, 160)
+        self.setMaximumHeight(200)
+
         self.setLayout(self.layout)
         self.initUI()
 
@@ -119,6 +120,7 @@ class QDirectory(QFrame):
         self.current_dir = QCurrent_dir(self.dir)
 
         self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setContentsMargins(0, 0, 0, 0)
         self.layout.addWidget(self.current_dir)
         self.layout.addWidget(self.d_list)
 

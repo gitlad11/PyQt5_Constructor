@@ -41,10 +41,11 @@ class QNav_Menu(QFrame):
         self.btn1.setCursor(self.current_cursor)
         self.btn2.setCursor(self.current_cursor)
 
-        self.setStyleSheet(""" QFrame { background-color: rgba(40, 40, 40, 1); border-radius: 6px 6px 6px 6px; }  
+        self.setStyleSheet(""" QFrame { background-color: rgba(30, 30, 30, 0.8); border-radius: 6px 6px 6px 6px; }  
         QPushButton::hover { background : rgba(160, 160, 160, 1); color : #fff; } """)
 
         self.setFixedWidth(400)
+        self.setFixedHeight(46)
         self.layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignCenter)
 
         self.setLayout(self.layout)
@@ -53,7 +54,8 @@ class QNavBar(QFrame):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QHBoxLayout(self)
-        self.setStyleSheet(""" QFrame { background-color: rgba(140, 140, 140, 1); } """)
+        self.setStyleSheet(""" QFrame { background-color: rgba(140, 140, 140, 0); } """)
+
 
         self.btn_list = QNav_Menu()
         self.layout.addWidget(self.btn_list)

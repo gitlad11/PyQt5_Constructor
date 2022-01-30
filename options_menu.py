@@ -48,8 +48,9 @@ class Options(QFrame):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMinimumWidth(340)
-        self.setMinimumHeight(1100)
+        self.setMinimumWidth(120)
+        self.setMaximumWidth(340)
+        self.setMinimumHeight(700)
 
         self.o_menu = QMenuOption()
         self.o_menu1 = QMenuOption()

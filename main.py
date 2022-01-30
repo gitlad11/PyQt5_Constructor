@@ -66,7 +66,7 @@ class Graph_Thread(QThread):
 
 
 
-class Window(Qt.QWidget):
+class Window(QFrame):
 
     def __init__(self):
         super().__init__()
@@ -102,8 +102,8 @@ class Window(Qt.QWidget):
         self.setPalette(self.red_palette)
         self.layout.addWidget(self.view)
         self.view.setLabel('left', 'Percentage', color="white", size='8pt', units='%')
-        self.setFixedWidth(360)
-        self.setFixedHeight(280)
+        self.setFixedWidth(270)
+        self.setFixedHeight(230)
         self.layout.setContentsMargins(5, 5, 5, 5)
         self.setContentsMargins(0, 0, 0, 0)
 
@@ -122,15 +122,13 @@ class Window(Qt.QWidget):
         self.curve.setData(self.positions)
 
         if s > 30:
-            self.setPalette(self.yellow_palette)
+            self.setStyleSheet(" background-color:  rgba(160, 255, 0, 1); ")
         elif s > 50:
-            self.setPalette(self.purple_palette)
+            self.setStyleSheet(" background-color:  rgba(100, 100, 255, 1); ")
         elif s > 70:
-            self.setPalette(self.red_palette)
+            self.setStyleSheet(" background-color:  rgba(255, 100, 100, 1); ")
         else:
-            self.setPalette(self.blue_palette)
-
-        print(self.positions)
+            self.setStyleSheet(" background-color:  rgba(100, 100, 255, 1); ")
 
     def closeEvent(self, event):
 

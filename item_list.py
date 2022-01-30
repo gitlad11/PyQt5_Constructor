@@ -13,7 +13,7 @@ class QNavbar(QWidget):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
-        self.setFixedWidth(360)
+        self.setFixedWidth(270)
         self.setFixedHeight(30)
         self.layout.setContentsMargins(0, 0, 0, 0)
 
@@ -68,7 +68,7 @@ class QListItem(QWidget):
         self.setCursor(self.current_cursor)
 
         self.setStyleSheet("border: 1px 1px 0px 0px;")
-        self.resize(360, 18)
+        self.resize(270, 18)
         self.setWindowOpacity(0.6)
 
         self.layout = Qt.QVBoxLayout(self)
@@ -83,7 +83,7 @@ class QListItem(QWidget):
         self.btn.setText(str(self.title))
         self.btn.setFont(QFont("Helvetica", 11))
         self.btn.setContentsMargins(0, 0, 0, 0)
-        self.btn.setFixedWidth(360)
+        self.btn.setFixedWidth(270)
         self.btn.setStyleSheet("color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left; ")
         self.btn.setIcon(self.Icon)
         self.btn.setLayoutDirection(QtCore.Qt.RightToLeft)
@@ -148,8 +148,9 @@ class QList_Widget(QWidget):
         self.layout.setSpacing(0)
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
-        self.setFixedHeight(400)
+        self.resize(460, 270)
         self.setStyleSheet(""" QWidget { background-color: #fff; } """)
 
 
@@ -157,8 +158,8 @@ class QList(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout = Qt.QVBoxLayout(self)
-        self.setFixedHeight(900)
-        self.setFixedWidth(364)
+        self.setFixedHeight(760)
+        self.setFixedWidth(270)
         self.list_widget = QList_Widget()
         self.navbar = QNavbar()
         self.graph = Window()
@@ -166,7 +167,7 @@ class QList(QWidget):
         self.layout.addWidget(self.navbar)
         self.layout.addWidget(self.list_widget)
         self.layout.addWidget(self.graph)
-        self.setStyleSheet(""" QWidget { background-color: rgba(120, 120 ,120, 0.4); } """)
+        self.setStyleSheet("background-color: rgba(120, 120 ,120, 1); ")
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.setLayout(self.layout)
 
