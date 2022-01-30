@@ -1,13 +1,11 @@
 
 from PyQt5 import Qt, QtCore
-import pyqtgraph as pg
-import numpy as np
+
 import os, sys
-import threading
-import psutil
-from PyQt5.QtCore import QThread, QSize
-from PyQt5.QtGui import QFont, QPalette, QColor, QIcon, QPixmap, QCursor, QPainter, QPen
-from PyQt5.QtWidgets import QLabel,QLineEdit, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect,  QCheckBox, QWidget
+
+from PyQt5.QtCore import  QSize
+from PyQt5.QtGui import QFont, QIcon, QPixmap, QCursor
+from PyQt5.QtWidgets import QLabel, QLineEdit, QFrame, QWidget
 import datetime
 import ctypes
 from QMargin import QMargin
@@ -127,9 +125,6 @@ class QDirectory(QFrame):
     def initUI(self):
         self.dir = str(os.getcwd())
         
-
-
-   
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)

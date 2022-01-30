@@ -1,7 +1,7 @@
-import PyQt5
+
 from PyQt5 import Qt, QtCore
 
-from PyQt5.QtWidgets import QLabel, QLineEdit, QFrame
+from PyQt5.QtWidgets import QFrame
 
 
 class QMargin(QFrame):

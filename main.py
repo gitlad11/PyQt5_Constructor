@@ -102,8 +102,11 @@ class Window(Qt.QWidget):
         self.setPalette(self.red_palette)
         self.layout.addWidget(self.view)
         self.view.setLabel('left', 'Percentage', color="white", size='8pt', units='%')
-        self.resize(400, 320)
-        self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint)
+        self.setFixedWidth(360)
+        self.setFixedHeight(280)
+        self.layout.setContentsMargins(5, 5, 5, 5)
+        self.setContentsMargins(0, 0, 0, 0)
+
     
 
     def onchange(self, s):

@@ -1,7 +1,7 @@
 
 from PyQt5 import Qt, QtCore
 from PyQt5.QtCore import QThread, QSize
-from PyQt5.QtGui import QFont, QPalette, QColor, QCursor, QIcon, QPixmap
+from PyQt5.QtGui import QCursor, QIcon, QPixmap
 import sys
 
 

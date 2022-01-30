@@ -1,19 +1,10 @@
-import subprocess
-from tabnanny import check
-import time
 
-import PyQt5
 from PyQt5 import Qt, QtCore
-import pyqtgraph as pg
-import numpy as np
-import os, sys
-import threading
-import psutil
-from PyQt5.QtCore import QThread
-from PyQt5.QtGui import QFont, QPalette, QColor
-from PyQt5.QtWidgets import QLabel,QLineEdit, QFrame, QToolBar, QAction, QStatusBar, QGraphicsDropShadowEffect,  QCheckBox
-import datetime
-import ctypes
+
+from PyQt5.QtCore import QThread, QSize
+from PyQt5.QtGui import QFont, QPalette, QColor, QPixmap
+from PyQt5.QtWidgets import QLabel,QLineEdit, QFrame, QCheckBox, QComboBox
+
 
 
 class QInput(QFrame):
@@ -176,4 +167,74 @@ class QCheckInput(QFrame):
 
             self.setLayout(self.layout)
 
-            
+
+class QdropdownInput(QFrame):
+    def __init__(self, title):
+        super().__init__()
+        self.title = title
+        self.layout = Qt.QHBoxLayout(self)
+        self.label = QLabel(str(self.title))
+        self.dropdown = QComboBox()
+        self.dropdown.addItem('One')
+        self.dropdown.addItem('Two')
+        self.dropdown.addItem('Three')
+        self.dropdown.addItem('Four')
+        self.label.setFont(QFont("Helvetica", 10))
+        self.setStyleSheet("""QFrame { 
+
+                                  background-color: rgba(40, 40, 40, 1); 
+                                  color: white;
+                                  border-radius: 4px 4px 4px 4px; 
+
+                                 } 
+                                 QLabel {
+                                     font-weight: bold
+                                 }
+                                 QComboBox {
+                                     color : #fff;
+                                     background-color: #7c7c7c;
+                                 }
+                                  """)
+
+        self.layout.addWidget(self.label)
+        self.layout.addWidget(self.dropdown)
+
+        self.setLayout(self.layout)
+
+
+class QImageInput(QFrame):
+    def __init__(self, image, title):
+        super().__init__()
+        self.image = image
+        self.title = title
+        self.layout = Qt.QHBoxLayout(self)
+        self.pixmap = QPixmap(str(self.image))
+        self.pixmap.scaled(QSize(30, 30))
+        self.label = QLabel(str(self.title))
+        self.label1 = QLabel('')
+        self.label1.setPixmap(self.pixmap)
+
+        self.frame = QFrame()
+        self.frame.setLayout(Qt.QHBoxLayout())
+        self.frame.layout().addWidget(self.label1)
+        self.frame.setStyleSheet(""" QFrame { background-color: #fff; } """)
+        self.frame.layout().setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignCenter)
+        self.layout.addWidget(self.label)
+        self.layout.addWidget(self.frame)
+        self.label.setFont(QFont("Helvetica", 10))
+        self.setStyleSheet("""QFrame { 
+                                         background-color: rgba(40, 40, 40, 1); 
+                                         color: white;
+                                         border-radius: 4px 4px 4px 4px; 
+
+                                        } 
+                                        QLabel {
+                                            font-weight: bold
+                                        }
+                                        QComboBox {
+                                            color : #fff;
+                                            background-color: #7c7c7c;
+                                        }
+                                         """)
+
+        self.setLayout(self.layout)
