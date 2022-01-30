@@ -57,10 +57,9 @@ class Options(QFrame):
         self.o_menu2 = QMenuOption()
         self.navbar = Options_navbar()
 
-        self.gray_palette = self.palette()
-        self.gray_palette.setColor(QPalette.Window, QColor(50, 50, 50))
-        
-        self.setPalette(self.gray_palette)
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
+                                  border-radius: 0px 0px 0px 0px; 
+                                  }""")
         self.setContentsMargins(0, 0, 0, 0)
         layout = Qt.QVBoxLayout(self)
         layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)

@@ -4,7 +4,7 @@ from PyQt5 import Qt, QtCore
 import sys
 from PyQt5.QtCore import QThread, QSize
 from PyQt5.QtGui import QFont, QPalette, QColor, QCursor, QIcon, QPixmap
-from PyQt5.QtWidgets import QLabel, QWidget
+from PyQt5.QtWidgets import QLabel, QWidget, QFrame
 import numpy as np
 from list_widget import QList_widget
 from main import Window
@@ -154,7 +154,7 @@ class QList_Widget(QWidget):
         self.setStyleSheet(""" QWidget { background-color: #fff; } """)
 
 
-class QList(QWidget):
+class QList(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout = Qt.QVBoxLayout(self)
@@ -167,7 +167,9 @@ class QList(QWidget):
         self.layout.addWidget(self.navbar)
         self.layout.addWidget(self.list_widget)
         self.layout.addWidget(self.graph)
-        self.setStyleSheet("background-color: rgba(120, 120 ,120, 1); ")
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
+                                border-radius: 0px 0px 0px 0px; 
+                                 }""")
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.setLayout(self.layout)
 

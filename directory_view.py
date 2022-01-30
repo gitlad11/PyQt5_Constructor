@@ -31,10 +31,10 @@ class QDirectoryBtn(QFrame):
         else:
             self.image = Qt.QImage("script-dir.png")     
         self.pix = QPixmap.fromImage(self.image)
-        self.pix.scaled(QSize(55, 55), QtCore.Qt.KeepAspectRatio)
+        self.pix.scaled(QSize(60, 60), QtCore.Qt.KeepAspectRatio)
         self.Icon.addPixmap(self.pix)
         self.btn.setIcon(self.Icon)
-        self.btn.setIconSize(QSize(55, 55))
+        self.btn.setIconSize(QSize(67, 67))
 
         self.label = QLabel(str(self.name))
         self.label.setFont(QFont("Helvetica", 10))
@@ -66,7 +66,7 @@ class QDirectoryList(QFrame):
             { "name" : "script-dir.png", "type" : "file" }
         ]
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignCenter)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(70, 70, 70, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
                            border-radius: 0px 0px 0px 0px; 
                             }""")
 
@@ -89,7 +89,7 @@ class QCurrent_dir(QFrame):
         self.directory.setFont(QFont("Helvetica", 9))
         self.directory.setStyleSheet(""" QLabel { font-weight : bold; color : #fff; border: 0px; } """)
 
-        self.label =  QLabel(str(self.dir))
+        self.label = QLabel(str(self.dir))
         self.label.setFont(QFont("Helvetica", 9))
         self.label.setStyleSheet(""" QLabel { color : #fff; border: 0px; } """)
         self.setStyleSheet(""" QFrame { border-bottom : 1px solid gray; } """)
@@ -97,7 +97,7 @@ class QCurrent_dir(QFrame):
         self.layout.addWidget(self.directory)
         self.layout.addWidget(self.label)
         
-        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setContentsMargins(10, 10, 0, 0)
         self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
@@ -107,9 +107,9 @@ class QDirectory(QFrame):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
         self.dir = ""
-        self.setStyleSheet(""" QFrame{ background-color: rgba(70, 70, 70, 1);
-                           border-radius: 0px 0px 0px 0px; 
-                           }""")
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
+                                  border-radius: 6px 6px 6px 6px; 
+                                  }""")
         self.resize(1200, 160)
         self.setMaximumHeight(200)
 

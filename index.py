@@ -4,6 +4,8 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPalette, QLinearGradient, QColor, QBrush
 from navbar import QNavBar
 from content import QContent
+
+
 class Index(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -11,9 +13,9 @@ class Index(QtWidgets.QWidget):
 
         p = QPalette()
 
-        gradient = QLinearGradient(0, 0, 0, 400)
-        self.color1 = QtGui.QColor(100, 100, 130)
-        self.color2 = QtGui.QColor(70, 70, 70)
+        gradient = QLinearGradient(0, 0, 0, 700)
+        self.color1 = QtGui.QColor(90, 90, 120)
+        self.color2 = QtGui.QColor(30, 30, 40)
         self.navbar = QNavBar()
         self.content = QContent()
         gradient.setColorAt(0.0, self.color1)
