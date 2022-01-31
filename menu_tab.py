@@ -1,4 +1,4 @@
-from PyQt5 import Qt, QtCore
+from PyQt5 import Qt, QtCore, QtGui
 
 import sys
 
@@ -24,6 +24,9 @@ class QMenuTab(QWidget):
         self.current_cursor = QCursor(self.cursor_scaled_pix, -1, -1)
         self.setCursor(self.current_cursor)
 
+        self.color1 = QtGui.QColor(240, 83, 218)
+        self.color2 = QtGui.QColor(101, 217, 245)
+
         self.setStyleSheet("border: 1px 1px 0px 0px;")
         self.resize(330, 22)
         self.setWindowOpacity(0.6)
@@ -39,6 +42,7 @@ class QMenuTab(QWidget):
         self.btn.setText(str(self.title))
         self.btn.setFont(QFont("Helvetica", 11))
         self.btn.setFixedWidth(330)
+        self.btn.setFixedHeight(30)
         self.btn.setStyleSheet("color: #000; background-color: rgba(255, 255, 255, 1); letter-spacing: 1px; "
                                "border-radius: 4px 4px 4px 4px;"
                                "border-bottom: 1px solid gray; padding: 2px 10px 2px 10px; text-align: left; ")
@@ -59,19 +63,37 @@ class QMenuTab(QWidget):
         self.layout.addWidget(self.btn)
         self.layout.setAlignment(QtCore.Qt.AlignCenter)
 
-    def event(self, e):
-        if e.type() == QtCore.QEvent.Enter:
-            self.btn.setStyleSheet(
-                "background-color: rgba(140, 140, 140, 1); color: #fff; letter-spacing: 1px; "
-                "border-radius: 4px 4px 4px 4px; "
-                "border-bottom: 1px solid gray; padding: 2px 10px 2px 10px; text-align: left;")
-        elif e.type() == QtCore.QEvent.Leave:
-            self.btn.setStyleSheet(
-                "color: #000; background-color: rgba(255, 255, 255, 1); letter-spacing: 1px; "
-                "border-radius: 4px 4px 4px 4px; "
-                "border-bottom: 1px solid gray; padding: 2px 10px 2px 10px; text-align: left;")
+        self._animation = QtCore.QVariantAnimation(
+            self,
+            valueChanged=self._animate,
+            startValue=0.00001,
+            endValue=0.9999,
+            duration=250
+        )
 
-        return QWidget.event(self, e)
+    def _animate(self, value):
+        qss = """
+            font: 75 10pt "Microsoft YaHei UI";
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            border-style: solid;
+            border-radius:21px;
+        """
+        grad = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 {color1}, stop:{value} {color2}, stop: 1.0 {color1}); color: #000; letter-spacing: 1px;  padding: 2px 10px 2px 10px; text-align: left;".format(
+            color1=self.color1.name(), color2=self.color2.name(), value=value
+        )
+        qss += grad
+        self.btn.setStyleSheet(qss)    
+
+    def enterEvent(self, event):
+        self._animation.setDirection(QtCore.QAbstractAnimation.Forward)
+        self._animation.start()
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self._animation.setDirection(QtCore.QAbstractAnimation.Backward)
+        self._animation.start()
+        super().enterEvent(event)
 
     def on_active(self):
 
@@ -116,7 +138,7 @@ class Options_menu(QFrame):
         super().__init__(parent)
         self.options = []
         self.o_list = Options_list()
-        self.setStyleSheet("background-color: #949494; border-radius: 3px 3px 3px 3px;")
+        self.setStyleSheet("background-color: rgba(60, 60, 90, 1); border-radius: 3px 3px 3px 3px;")
         self.setFixedHeight(400)
         self.setFixedWidth(330)
         self.setContentsMargins(0, 0, 0, 0)
@@ -147,7 +169,7 @@ class QMenuOption(QFrame):
         self.setLayout(self.layout)
         self.layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignCenter)
         self.layout.setContentsMargins(0, 0, 0, 0)
-
+        self.setStyleSheet(""" QFrame { border: 0px; } """)
     def on_show(self, show):
         print(show)
         if show:

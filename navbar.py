@@ -15,6 +15,14 @@ class QNav_Menu(QFrame):
         self.layout = Qt.QHBoxLayout(self)
         self.btn1 = Qt.QPushButton("")
         self.btn2 = Qt.QPushButton("")
+        self.btn1.setStyleSheet(""" QPushButton { border: 0px; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
+        self.btn2.setStyleSheet(""" QPushButton { border: 0px; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
+        
+        self.btn1.setFixedHeight(30)
+        self.btn1.setFixedWidth(50)
+
+        self.btn2.setFixedHeight(30)
+        self.btn2.setFixedWidth(50)
 
         self.Icon1 = QIcon()
         self.pix = QPixmap("caret-r.png")
@@ -41,7 +49,7 @@ class QNav_Menu(QFrame):
         self.btn1.setCursor(self.current_cursor)
         self.btn2.setCursor(self.current_cursor)
 
-        self.setStyleSheet(""" QFrame { background-color: rgba(30, 30, 30, 0.8); border-radius: 6px 6px 6px 6px; }  
+        self.setStyleSheet(""" QFrame { background-color: rgba(230, 230, 230, 0.6); border-radius: 6px 6px 6px 6px; }  
         QPushButton::hover { background : rgba(160, 160, 160, 1); color : #fff; } """)
 
         self.setFixedWidth(400)
@@ -54,12 +62,13 @@ class QNavBar(QFrame):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QHBoxLayout(self)
-        self.setStyleSheet(""" QFrame { background-color: rgba(140, 140, 140, 0); } """)
+        self.setStyleSheet(""" QFrame { background-color: rgba(20, 20, 20, 0.2); } """)
 
 
         self.btn_list = QNav_Menu()
         self.layout.addWidget(self.btn_list)
         self.setLayout(self.layout)
+        self.setFixedHeight(54)
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)

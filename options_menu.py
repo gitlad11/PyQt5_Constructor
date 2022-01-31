@@ -9,7 +9,7 @@ from PyQt5.QtGui import QPalette, QColor
 from PyQt5.QtWidgets import QWidget, QFrame
 from menu_tab import QMenuOption
 from sized_box import QSizedBox
-
+from gradient_button import GradientButton
 
 class NavBar(QFrame):
     def __init__(self):
@@ -21,7 +21,8 @@ class NavBar(QFrame):
         self.btn = QIcon_Button(icon="angle-left.png", toolTip="Назад")
         self.btn2 = QIcon_Button(icon="angle-right.png", toolTip="Вперед")
         self.btn3 = QIcon_Button(icon="folder.png", toolTip="Сохранить")
-
+        
+        self.setStyleSheet(""" QFrame {  border: 0px; } """)
         self.setContentsMargins(4, 0, 4, 0)
         self.layout.addWidget(self.btn)
         self.layout.addWidget(self.btn2)
@@ -36,7 +37,7 @@ class Options_navbar(QFrame):
         self.white_palette = self.palette()
         self.white_palette.setColor(QPalette.Window, QColor(255, 255, 255))
         self.setPalette(self.white_palette)
-        self.setStyleSheet(""" QFrame { background-color: #fff; } """)
+        self.setStyleSheet(""" QFrame { background-color: #fff; border: 0px; } """)
         self.setMinimumWidth(350)
         self.setMinimumHeight(30)
 
@@ -55,10 +56,12 @@ class Options(QFrame):
         self.o_menu = QMenuOption()
         self.o_menu1 = QMenuOption()
         self.o_menu2 = QMenuOption()
+        self.add_component = GradientButton()
         self.navbar = Options_navbar()
 
-        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
-                                  border-radius: 0px 0px 0px 0px; 
+        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+                                 border: 1px inset gray;
+                                  
                                   }""")
         self.setContentsMargins(0, 0, 0, 0)
         layout = Qt.QVBoxLayout(self)
@@ -74,6 +77,7 @@ class Options(QFrame):
         layout.addWidget(self.o_menu1)
         layout.addWidget(self.o_menu2)
 
+        layout.addWidget(self.add_component)
         layout2.addLayout(layout)
         layout2.addLayout(layout3)
         self.setLayout(layout2)

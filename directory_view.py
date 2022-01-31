@@ -31,7 +31,7 @@ class QDirectoryBtn(QFrame):
         else:
             self.image = Qt.QImage("script-dir.png")     
         self.pix = QPixmap.fromImage(self.image)
-        self.pix.scaled(QSize(60, 60), QtCore.Qt.KeepAspectRatio)
+        self.pix.scaled(QSize(67, 67), QtCore.Qt.KeepAspectRatio)
         self.Icon.addPixmap(self.pix)
         self.btn.setIcon(self.Icon)
         self.btn.setIconSize(QSize(67, 67))
@@ -66,8 +66,9 @@ class QDirectoryList(QFrame):
             { "name" : "script-dir.png", "type" : "file" }
         ]
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignCenter)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
                            border-radius: 0px 0px 0px 0px; 
+                           border: 0px;
                             }""")
 
         self.initUI()
@@ -107,8 +108,9 @@ class QDirectory(QFrame):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
         self.dir = ""
-        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
-                                  border-radius: 6px 6px 6px 6px; 
+        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+                                  border-radius: 4px 4px 4px 4px;
+                                  
                                   }""")
         self.resize(1200, 160)
         self.setMaximumHeight(200)

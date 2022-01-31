@@ -1,5 +1,5 @@
 
-from PyQt5 import Qt, QtCore
+from PyQt5 import Qt, QtCore, QtGui
 
 import sys
 from PyQt5.QtCore import QThread, QSize
@@ -71,6 +71,9 @@ class QListItem(QWidget):
         self.resize(270, 18)
         self.setWindowOpacity(0.6)
 
+        self.color1 = QtGui.QColor(240, 83, 218)
+        self.color2 = QtGui.QColor(101, 217, 245)
+
         self.layout = Qt.QVBoxLayout(self)
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setContentsMargins(0, 0, 0, 0)
@@ -84,7 +87,7 @@ class QListItem(QWidget):
         self.btn.setFont(QFont("Helvetica", 11))
         self.btn.setContentsMargins(0, 0, 0, 0)
         self.btn.setFixedWidth(270)
-        self.btn.setStyleSheet("color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left; ")
+        self.btn.setStyleSheet("color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left; font-weight: bold; ")
         self.btn.setIcon(self.Icon)
         self.btn.setLayoutDirection(QtCore.Qt.RightToLeft)
         
@@ -93,15 +96,38 @@ class QListItem(QWidget):
         self.layout.setAlignment(QtCore.Qt.AlignCenter)
 
 
-    def event(self, e):
-        if e.type() == QtCore.QEvent.Enter:
-            self.btn.setStyleSheet(
-                "background-color: #dbdbdb; color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left;")
-        elif e.type() == QtCore.QEvent.Leave:
-            self.btn.setStyleSheet(
-                "color: #141313; letter-spacing: 1px; border-bottom: 1px solid gray; padding: 5px 5px 5px 5px; text-align: left;")
+        self._animation = QtCore.QVariantAnimation(
+            self,
+            valueChanged=self._animate,
+            startValue=0.00001,
+            endValue=0.9999,
+            duration=250
+        )
 
-        return QWidget.event(self, e)
+    def _animate(self, value):
+        qss = """
+            font: 75 10pt "Microsoft YaHei UI";
+            font-weight: bold;
+            color: rgb(255, 255, 255);
+            border-style: solid;
+            border-radius:21px;
+        """
+        grad = "background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 {color1}, stop:{value} {color2}, stop: 1.0 {color1}); color: #000; letter-spacing: 1px;  padding: 5px 5px 5px 5px; text-align: left;".format(
+            color1=self.color1.name(), color2=self.color2.name(), value=value
+        )
+        qss += grad
+        self.btn.setStyleSheet(qss)    
+
+    def enterEvent(self, event):
+        self._animation.setDirection(QtCore.QAbstractAnimation.Forward)
+        self._animation.start()
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self._animation.setDirection(QtCore.QAbstractAnimation.Backward)
+        self._animation.start()
+        super().enterEvent(event)
+
 
     def on_active(self):
             if self.active:
@@ -167,8 +193,9 @@ class QList(QFrame):
         self.layout.addWidget(self.navbar)
         self.layout.addWidget(self.list_widget)
         self.layout.addWidget(self.graph)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
-                                border-radius: 0px 0px 0px 0px; 
+        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+                                border-radius: 4px 4px 4px 4px;
+                                border: 1px inset gray; 
                                  }""")
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.setLayout(self.layout)

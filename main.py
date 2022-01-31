@@ -103,8 +103,8 @@ class Window(QFrame):
         self.layout.addWidget(self.view)
         self.view.setLabel('left', 'Percentage', color="white", size='8pt', units='%')
         self.setFixedWidth(270)
-        self.setFixedHeight(230)
-        self.layout.setContentsMargins(5, 5, 5, 5)
+        self.setFixedHeight(210)
+        self.layout.setContentsMargins(2, 2, 2, 2)
         self.setContentsMargins(0, 0, 0, 0)
 
     

@@ -3,7 +3,7 @@ from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QPixmap, QCursor
 
 
-class LoginButton(QtWidgets.QPushButton):
+class GradientButton(QtWidgets.QPushButton):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -16,7 +16,8 @@ class LoginButton(QtWidgets.QPushButton):
         self.cursor_scaled_pix = self.cursor_pix.scaled(QSize(18, 18), QtCore.Qt.KeepAspectRatio)
         self.current_cursor = QCursor(self.cursor_scaled_pix, -1, -1)
         self.setCursor(self.current_cursor)
-
+        self.setText("add component")
+        
         self._animation = QtCore.QVariantAnimation(
             self,
             valueChanged=self._animate,
@@ -57,10 +58,6 @@ if __name__ == "__main__":
     w = QtWidgets.QWidget()
     lay = QtWidgets.QVBoxLayout(w)
 
-    for i in range(1):
-        button = LoginButton()
-        button.setText("Login")
-        lay.addWidget(button)
     lay.addStretch()
     w.resize(640, 480)
     w.show()

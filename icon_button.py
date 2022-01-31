@@ -6,11 +6,11 @@ import sys
 
 
 class QIcon_Button(Qt.QPushButton):
-    def __init__(self, icon, toolTip=None):
+    def __init__(self, icon, toolTip=None, onClick=None):
         super().__init__()
         self.icon = icon
         self.toolTip = toolTip
-
+        self.onClick = onClick
         self.setStyleSheet('border: 0px;')
 
         if self.toolTip:
