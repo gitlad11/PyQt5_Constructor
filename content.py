@@ -10,7 +10,7 @@ class QContent_block(QtWidgets.QFrame):
         self.layout = Qt.QVBoxLayout()
         self.resize(800, 900)
      
-        self.con = QtWidgets.QWidget()
+        self.con = QEditor()
         self.con.setContentsMargins(0,0,0,0)
         self.con.resize(900, 600)
         self.con.setStyleSheet("background-color: #fff; ")
