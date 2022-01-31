@@ -138,7 +138,7 @@ class Options_menu(QFrame):
         super().__init__(parent)
         self.options = []
         self.o_list = Options_list()
-        self.setStyleSheet("background-color: rgba(60, 60, 90, 1); border-radius: 3px 3px 3px 3px;")
+        self.setStyleSheet("background-color: rgba(80, 80, 110, 1); border-radius: 3px 3px 3px 3px;")
         self.setFixedHeight(400)
         self.setFixedWidth(330)
         self.setContentsMargins(0, 0, 0, 0)

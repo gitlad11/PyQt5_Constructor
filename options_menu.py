@@ -11,6 +11,7 @@ from menu_tab import QMenuOption
 from sized_box import QSizedBox
 from gradient_button import GradientButton
 
+
 class NavBar(QFrame):
     def __init__(self):
         super().__init__()
@@ -18,15 +19,17 @@ class NavBar(QFrame):
         self.setFixedWidth(330)
         self.layout = Qt.QHBoxLayout(self)
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
-        self.btn = QIcon_Button(icon="angle-left.png", toolTip="Назад")
-        self.btn2 = QIcon_Button(icon="angle-right.png", toolTip="Вперед")
-        self.btn3 = QIcon_Button(icon="folder.png", toolTip="Сохранить")
-        
+        self.btn = QIcon_Button(icon="icons/angle-left.png", toolTip="Назад")
+        self.btn2 = QIcon_Button(icon="icons/angle-right.png", toolTip="Вперед")
+        self.btn3 = QIcon_Button(icon="icons/folder.png", toolTip="Сохранить")
+        self.btn4 = QIcon_Button(icon='icons/plus.png', toolTip="Добавить компонент")
         self.setStyleSheet(""" QFrame {  border: 0px; } """)
         self.setContentsMargins(4, 0, 4, 0)
         self.layout.addWidget(self.btn)
         self.layout.addWidget(self.btn2)
         self.layout.addWidget(self.btn3)
+        self.layout.addWidget(self.btn4)
+
 
 class Options_navbar(QFrame):
     def __init__(self):
@@ -59,7 +62,8 @@ class Options(QFrame):
         self.add_component = GradientButton()
         self.navbar = Options_navbar()
 
-        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+        self.setStyleSheet(""" QFrame{ 
+                                 background-color: rgba(60, 60, 80, 1);
                                  border: 1px inset gray;
                                   
                                   }""")

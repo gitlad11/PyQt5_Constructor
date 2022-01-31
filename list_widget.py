@@ -14,7 +14,7 @@ class QList_item(QFrame):
         self.layout = Qt.QHBoxLayout(self)
         self.setStyleSheet(""" QPushButton { background-color: #fff; border-bottom : 0px; margin : 0px 0px 0px 0px;
                                     padding : 0px 60px 0px 60px; text-align: left; letter-spacing: 0.5px; font-weight: bold;}  
-                                    QPushButton::hover { background-color : lightgreen; } 
+                                    QPushButton::hover { background-color : rgba(61, 217, 245 , 0.8); } 
                                QHBoxLayout { padding: 0px 0px 0px 0px; margin: 0x 0px 0px 0px; } """)
 
         self.layout.setContentsMargins(0, 0, 0, 0)

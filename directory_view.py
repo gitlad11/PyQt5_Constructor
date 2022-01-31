@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QLabel, QLineEdit, QFrame, QWidget
 import datetime
 import ctypes
 from QMargin import QMargin
+from title import Title
 
 
 class QDirectoryBtn(QFrame):
@@ -66,7 +67,7 @@ class QDirectoryList(QFrame):
             { "name" : "script-dir.png", "type" : "file" }
         ]
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignCenter)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
                            border-radius: 0px 0px 0px 0px; 
                            border: 0px;
                             }""")
@@ -97,7 +98,7 @@ class QCurrent_dir(QFrame):
 
         self.layout.addWidget(self.directory)
         self.layout.addWidget(self.label)
-        
+        self.setFixedHeight(30)
         self.layout.setContentsMargins(10, 10, 0, 0)
         self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
@@ -108,7 +109,7 @@ class QDirectory(QFrame):
         super().__init__()
         self.layout = Qt.QVBoxLayout(self)
         self.dir = ""
-        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
                                   border-radius: 4px 4px 4px 4px;
                                   
                                   }""")
@@ -117,12 +118,13 @@ class QDirectory(QFrame):
 
         self.setLayout(self.layout)
         self.initUI()
-
+        
         self.d_list = QDirectoryList()       
         self.current_dir = QCurrent_dir(self.dir)
 
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setContentsMargins(0, 0, 0, 0)
+
         self.layout.addWidget(self.current_dir)
         self.layout.addWidget(self.d_list)
 

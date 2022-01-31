@@ -45,12 +45,14 @@ class Window(Qt.QWidget):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QHBoxLayout(self)
-        self.btn = QIcon_Button(icon="angle-left.png", toolTip="Назад")
-        self.btn2 = QIcon_Button(icon="angle-right.png", toolTip="Вперед")
-        self.btn3 = QIcon_Button(icon="folder.png", toolTip="Сохранить")
+        self.btn = QIcon_Button(icon="icons/angle-left.png", toolTip="Назад")
+        self.btn2 = QIcon_Button(icon="icons/angle-right.png", toolTip="Вперед")
+        self.btn3 = QIcon_Button(icon="icons/folder.png", toolTip="Сохранить")
+        self.btn4 = QIcon_Button(icon="icons/plus.png", toolTip="добавить компонент")
         self.layout.addWidget(self.btn)
         self.layout.addWidget(self.btn2)
         self.layout.addWidget(self.btn3)
+        self.layout.addWidget(self.btn4)
         self.setLayout(self.layout)
 
 

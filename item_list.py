@@ -193,7 +193,7 @@ class QList(QFrame):
         self.layout.addWidget(self.navbar)
         self.layout.addWidget(self.list_widget)
         self.layout.addWidget(self.graph)
-        self.setStyleSheet(""" QFrame{ background-color: rgba(40, 40, 60, 1);
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
                                 border-radius: 4px 4px 4px 4px;
                                 border: 1px inset gray; 
                                  }""")
