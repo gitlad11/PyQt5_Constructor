@@ -10,6 +10,7 @@ import datetime
 import ctypes
 from QMargin import QMargin
 from title import Title
+from folders import Folders
 
 
 class QDirectoryBtn(QFrame):
@@ -35,7 +36,7 @@ class QDirectoryBtn(QFrame):
         self.pix.scaled(QSize(67, 67), QtCore.Qt.KeepAspectRatio)
         self.Icon.addPixmap(self.pix)
         self.btn.setIcon(self.Icon)
-        self.btn.setIconSize(QSize(67, 67))
+        self.btn.setIconSize(QSize(46, 46))
 
         self.label = QLabel(str(self.name))
         self.label.setFont(QFont("Helvetica", 10))
@@ -103,6 +104,26 @@ class QCurrent_dir(QFrame):
         self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
+class QDirectory_view(QFrame):
+    def __init__(self):
+        super().__init__()
+        self.layout = Qt.QHBoxLayout(self)
+        self.directory = QDirectory()
+        self.folders = Folders()
+        self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
+                                  border-radius: 4px 4px 4px 4px;
+                                  
+                                  }""")
+
+        self.layout.addWidget(self.directory)
+        self.layout.addWidget(self.folders)
+        self.resize(1000, 160)
+        
+        self.setMaximumHeight(200)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.setContentsMargins(0, 0, 0, 0)
+        self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignCenter)
+        self.setLayout(self.layout)
 
 class QDirectory(QFrame):
     def __init__(self):
@@ -113,7 +134,8 @@ class QDirectory(QFrame):
                                   border-radius: 4px 4px 4px 4px;
                                   
                                   }""")
-        self.resize(1200, 160)
+        self.resize(1000, 160)
+        self.setMinimumWidth(850)
         self.setMaximumHeight(200)
 
         self.setLayout(self.layout)
@@ -122,11 +144,13 @@ class QDirectory(QFrame):
         self.d_list = QDirectoryList()       
         self.current_dir = QCurrent_dir(self.dir)
 
+
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setContentsMargins(0, 0, 0, 0)
 
         self.layout.addWidget(self.current_dir)
         self.layout.addWidget(self.d_list)
+      
 
     def initUI(self):
         self.dir = str(os.getcwd())
@@ -134,6 +158,6 @@ class QDirectory(QFrame):
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)
-    w = QDirectory()
+    w = QDirectory_view()
     w.show()
     sys.exit(app.exec_())

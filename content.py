@@ -1,6 +1,6 @@
 from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from item_list import QList
-from directory_view import QDirectory
+from directory_view import QDirectory_view
 from options_menu import Options
 from editor import QEditor
 
@@ -14,7 +14,7 @@ class QContent_block(QtWidgets.QFrame):
      
         self.con.setStyleSheet("background-color: #fff; ")
 
-        self.directory = QDirectory()
+        self.directory = QDirectory_view()
 
         self.layout.addWidget(self.con)
         self.layout.addWidget(self.directory)
