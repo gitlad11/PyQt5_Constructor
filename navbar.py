@@ -13,15 +13,16 @@ class QNav_Menu(QFrame):
         super().__init__()
 
         self.layout = Qt.QHBoxLayout(self)
+        
         self.btn1 = Qt.QPushButton("")
         self.btn2 = Qt.QPushButton("")
-        self.btn1.setStyleSheet(""" QPushButton { border: 0px; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
-        self.btn2.setStyleSheet(""" QPushButton { border: 0px; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
-        
-        self.btn1.setFixedHeight(30)
+        self.btn1.setStyleSheet(""" QPushButton { border: 1px inset gray; background-color : #fff; margin : 2px 0px 0px 4px; border-radius : 5px 5px 5px 5px; } """)
+        self.btn2.setStyleSheet(""" QPushButton { border: 1px inset gray; background-color : #fff; margin : 2px 0px 0px 4px; border-radius : 5px 5px 5px 5px; } """)
+        self.setContentsMargins(0, 0, 0, 0)
+        self.btn1.setFixedHeight(25)
         self.btn1.setFixedWidth(50)
 
-        self.btn2.setFixedHeight(30)
+        self.btn2.setFixedHeight(25)
         self.btn2.setFixedWidth(50)
 
         self.Icon1 = QIcon()
@@ -49,12 +50,12 @@ class QNav_Menu(QFrame):
         self.btn1.setCursor(self.current_cursor)
         self.btn2.setCursor(self.current_cursor)
 
-        self.setStyleSheet(""" QFrame { background-color: rgba(230, 230, 230, 0
+        self.setStyleSheet(""" QFrame { background-color: rgba(60, 60, 110, 0.8
         ); border-radius: 6px 6px 6px 6px; }  
         QPushButton::hover { background : rgba(160, 160, 160, 1); color : #fff; } """)
 
         self.setFixedWidth(400)
-        self.setFixedHeight(56)
+        self.setFixedHeight(50)
         self.layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignCenter)
 
         self.setLayout(self.layout)
@@ -69,7 +70,7 @@ class QNavBar(QFrame):
         self.btn_list = QNav_Menu()
         self.layout.addWidget(self.btn_list)
         self.setLayout(self.layout)
-        self.setFixedHeight(60)
+        self.setFixedHeight(55)
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)

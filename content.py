@@ -8,11 +8,10 @@ class QContent_block(QtWidgets.QFrame):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QVBoxLayout()
-        self.resize(800, 900)
+       
      
         self.con = QEditor()
-        self.con.setContentsMargins(0,0,0,0)
-        self.con.resize(900, 600)
+     
         self.con.setStyleSheet("background-color: #fff; ")
 
         self.directory = QDirectory()

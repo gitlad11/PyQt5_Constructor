@@ -18,13 +18,13 @@ class QNavbar(QWidget):
         self.layout.setContentsMargins(0, 0, 0, 0)
 
         self.btn1 = Qt.QPushButton('')
-        self.btn1.setStyleSheet(""" QPushButton { border: 0px; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
+        self.btn1.setStyleSheet(""" QPushButton { border: 1px inset gray; background-color : #fff; margin : 5px 0px 0px 6px; border-radius : 5px 5px 5px 5px; } """)
 
         self.Icon1 = QIcon()
         self.pix1 = QPixmap('icons/plus.png')
         self.pix1.scaled(QSize(29, 29))
         self.Icon1.addPixmap(self.pix1)
-        self.btn1.setFixedHeight(30)
+        self.btn1.setFixedHeight(29)
         self.btn1.setFixedWidth(50)
         self.btn1.setContentsMargins(4, 4, 0, 0)
         self.btn1.setIcon(self.Icon1)

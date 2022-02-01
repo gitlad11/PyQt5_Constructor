@@ -6,33 +6,43 @@ import sys
 
 
 class QIcon_Button(Qt.QPushButton):
-    def __init__(self, icon, toolTip=None, onClick=None):
+    def __init__(self, icon, toolTip=None, onClick=None, fill=False):
         super().__init__()
         self.icon = icon
         self.toolTip = toolTip
         self.onClick = onClick
+        self.fill = fill
         self.setStyleSheet('border: 0px;')
 
         if self.toolTip:
             self.setToolTip(str(self.toolTip))
             self.setToolTipDuration(4000)
 
-
-        self.setStyleSheet("""QToolTip { 
+        if self.fill:
+            self.setStyleSheet("""QToolTip { 
                            background-color: rgba(50, 50, 50, 1); 
                            color: white;
                            border-radius: 4px 4px 4px 4px; 
-                           border: #fff solid 1px
+                           border: #fff solid 1px;
                            } 
-                           QPushButton { border: 0px; } """)
+                           QPushButton { border: 0px; } """)         
+        else:
+            self.setStyleSheet("""QToolTip { 
+                           background-color: rgba(50, 50, 50, 1); 
+                           color: white;
+                           border-radius: 4px 4px 4px 4px; 
+                           border: #fff solid 1px;
+                           } 
+                           QPushButton { border: 0px; background-color: rgba(50, 50, 50, 0); } """)
+
         self.Icon = QIcon()
         self.pix = QPixmap(str(self.icon))
         self.pix.scaled(QSize(27, 27))
         self.Icon.addPixmap(self.pix)   
         self.setIcon(self.Icon)
         
-        self.setFixedWidth(20)
-        self.setFixedHeight(20)
+        self.setFixedWidth(24)
+        self.setFixedHeight(24)
 
 
         self.cursor_pix = QPixmap('cursor-dark2.png')  
