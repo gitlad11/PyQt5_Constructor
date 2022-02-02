@@ -53,7 +53,7 @@ class Options(QFrame):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.setMinimumWidth(120)
+        self.setMinimumWidth(340)
         self.setMaximumWidth(340)
         self.setMinimumHeight(700)
 

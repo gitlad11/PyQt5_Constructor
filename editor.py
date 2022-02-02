@@ -140,7 +140,8 @@ class QEditor(QtWidgets.QFrame):
         self.edit_list = QEditor_list()
         self.content = QEditor_block()
         self.setStyleSheet("background-color: rgba(40, 40, 40, 1);")
-        self.resize(1000, 1000)
+        self.resize(800, 1000)
+       
         self.layout.addWidget(self.tabs)
         self.layout.addWidget(self.edit_list)
         self.layout.addWidget(self.content)

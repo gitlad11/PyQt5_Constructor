@@ -6,13 +6,19 @@ import sys
 
 
 class QIcon_Button(Qt.QPushButton):
-    def __init__(self, icon, toolTip=None, onClick=None, fill=False):
+    def __init__(self, icon, toolTip=None, onClick=None, fill=False, height=None, width=None):
         super().__init__()
         self.icon = icon
         self.toolTip = toolTip
         self.onClick = onClick
         self.fill = fill
+        self.height = height
+        self.width = width
+
         self.setStyleSheet('border: 0px;')
+        
+        if self.onClick:
+            self.clicked.connect(self.onClick)
 
         if self.toolTip:
             self.setToolTip(str(self.toolTip))
@@ -37,13 +43,19 @@ class QIcon_Button(Qt.QPushButton):
 
         self.Icon = QIcon()
         self.pix = QPixmap(str(self.icon))
-        self.pix.scaled(QSize(27, 27))
+        
+        if self.width and self.height:
+            self.setFixedWidth(self.width)
+            self.setFixedHeight(self.height)
+            self.pix.scaled(QSize(self.height, self.width))
+        else:    
+            self.setFixedWidth(24)
+            self.setFixedHeight(24)
+            self.pix.scaled(QSize(27, 27))
+
+    
         self.Icon.addPixmap(self.pix)   
         self.setIcon(self.Icon)
-        
-        self.setFixedWidth(24)
-        self.setFixedHeight(24)
-
 
         self.cursor_pix = QPixmap('cursor-dark2.png')  
         self.cursor_scaled_pix = self.cursor_pix.scaled(QSize(21, 21), QtCore.Qt.KeepAspectRatio) 
