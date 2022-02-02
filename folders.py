@@ -14,20 +14,28 @@ class Tab_items(Qt.QFrame):
         self.dir = directory
         self.title = title
         self.layout = Qt.QVBoxLayout(self)
-        self.setStyleSheet(""" QFrame { border-bottom: 1px solid gray; border-left: 1px solid gray; }""")
+        self.setStyleSheet(""" QFrame { border-bottom: 1px solid gray; border-left: 1px solid gray; padding: 0px 0px 0px 0px; }""")
         self.setMinimumHeight(1)
         self.setLayout(self.layout)        
         self.setMinimumHeight(200)
         self.setMinimumWidth(200)
+        self.setContentsMargins(0, 0, 0, 0)
+        self.extensions_image = ['img', 'jpeg', 'web', 'png', 'favicon', 'svg']
+        self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', 'xml', 'html', 'jsx', 'css', 'sass', 'csharp', 'c','rb', 'dart']
         self.initUI()
 
     def initUI(self):
         if self.dir:
             list = os.listdir(self.dir + '/' + self.title)
-            print(list)
+
             for i in list:
-                tab = Tab_btn(title=str(i))
-                self.layout.addWidget(tab)
+                splited = i.split('.')
+                if len(splited) > 1 and splited[1] in self.extensions_files:
+                    item = Tab(title=i, icon="script-dir.png", type="file", directory='')
+                    self.layout.addWidget(item)
+                else:
+                    tab = Tab_btn(title=str(i), icon="folder-dir.png", type='folder', directory='')
+                    self.layout.addWidget(tab)
 
 
 
@@ -40,7 +48,7 @@ class Tab_btn(Qt.QFrame):
         self.type = type
         self.dir = directory
         self.on_tab_click = on_tab_click
-        self.active = False
+        self.active = True
 
         self.btn = QtWidgets.QPushButton()
         self.Icon = QIcon()
@@ -51,14 +59,14 @@ class Tab_btn(Qt.QFrame):
         self.btn.setText(str(self.title))
         self.btn.clicked.connect(self.on_active)
         self.items = Tab_items(directory=self.dir, title=self.title)
-        
+
         self.btn.setFixedHeight(30)
         self.btn.setMinimumWidth(220)
         self.setContentsMargins(0, 0, 0, 0)
-        self.setMinimumWidth(220)
+        self.setMinimumWidth(250)
         self.setFixedHeight(34)
 
-        self.setStyleSheet(""" QFrame { background-color: rgba(10, 10, 10, 0);  } QPushButton { 
+        self.setStyleSheet(""" QFrame { background-color: rgba(10, 10, 10, 0); padding: 0px 0px 0px 0px; border: 0px } QPushButton { 
             background-color: rgba(10, 10, 10, 0); 
             font: 75 9pt "Microsoft YaHei UI";
             font-weight: bold;
@@ -66,7 +74,7 @@ class Tab_btn(Qt.QFrame):
             padding: 0px 0px 5px 0px;
             text-align: left;
             margin: 0px 0px 0px 0px;
-
+          
             } """)
 
         if self.type == "folder":
@@ -120,12 +128,13 @@ class Tab_btn(Qt.QFrame):
             icon_btn = QIcon_Button("down-a.png")
             self.layout.insertWidget(0, icon_btn)
             self.active = False
+            self.on_tab_click(False)
         else:
             self.layout.itemAt(0).widget().deleteLater()
             icon_btn = QIcon_Button("left-a.png")
             self.layout.insertWidget(0, icon_btn)
             self.active = True
-        self.on_tab_click(self.active)
+            self.on_tab_click(True)
 
         
 
@@ -147,7 +156,7 @@ class Tab(Qt.QFrame):
         self.layout.addWidget(self.tab_btn)
         self.setStyleSheet(""" QFrame { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; } """)
         self.setMinimumHeight(44)
-        self.setMinimumWidth(220)
+        self.setMinimumWidth(250)
         
         self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
 
@@ -171,10 +180,10 @@ class Folder_list(Qt.QFrame):
         self.dir = dir
         self.layout = Qt.QVBoxLayout(self)
         self.setContentsMargins(0, 0, 0, 0)
-        self.extensions_image = ['img', 'jpeg', 'web', 'png', 'favicon']
-        self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', ]
+        self.extensions_image = ['img', 'jpeg', 'web', 'png', 'favicon', 'svg']
+        self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', 'xml', 'html', 'jsx', 'css', 'sass', 'csharp', 'c', 'rb', 'dart']
         self.setMinimumHeight(200)
-        self.setFixedWidth(220)
+        self.setFixedWidth(250)
 
         self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
         self.setLayout(self.layout)
@@ -183,7 +192,7 @@ class Folder_list(Qt.QFrame):
     def initUI(self):
             list = os.listdir(self.dir)
             for i in list:
-                self.height += 44
+                self.height += 60
                 splited = i.split('.')
 
                 if len(splited) > 1 and splited[1] in self.extensions_files:
@@ -224,7 +233,7 @@ class Folders(Qt.QFrame):
         self.scroll.setWidget(self.list)
 
         self.setMinimumHeight(200)
-        self.setFixedWidth(220)
+        self.setFixedWidth(250)
 
         self.layout.addWidget(self.scroll)
         self.setLayout(self.layout)

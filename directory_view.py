@@ -77,7 +77,7 @@ class QDirectoryList(QFrame):
         self.dir = dir
         self.open_folder = open_folder
         self.extensions_image = ['img', 'jpeg', 'web', 'png', 'favicon', 'svg']
-        self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', 'xml', 'html', 'jsx', 'css', 'sass', 'csharp', 'c', 'rb', 'dart', '']
+        self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', 'xml', 'html', 'jsx', 'css', 'sass', 'csharp', 'c', 'rb', 'dart']
         self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop)
         self.setStyleSheet(""" QFrame{ background-color: rgba(60, 60, 80, 1);
                            border-radius: 0px 0px 0px 0px; 
@@ -148,7 +148,7 @@ class QDirectory_view(QFrame):
 
         self.layout.addWidget(self.directory)
         self.layout.addWidget(self.folders)
-        self.resize(1000, 160)
+        self.resize(850, 160)
         
         self.setMaximumHeight(200)
         self.layout.setContentsMargins(0, 0, 0, 0)
@@ -200,7 +200,7 @@ class QDirectory(QFrame):
                                   
                                   }""")
         self.resize(850, 160)
-        self.setMinimumWidth(850)
+        self.setMinimumWidth(800)
         self.setMaximumHeight(200)
 
         self.setLayout(self.layout)
