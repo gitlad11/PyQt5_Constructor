@@ -11,9 +11,7 @@ class QContent_block(QtWidgets.QFrame):
        
      
         self.con = QEditor()
-     
-        self.con.setStyleSheet("background-color: #fff; ")
-
+        self.setStyleSheet(""" QFrame { background-color: rgba(40, 40, 40, 0); padding: 0px 0px 0px 0px; } """)
         self.directory = QDirectory_view()
 
         self.layout.addWidget(self.con)

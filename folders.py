@@ -7,34 +7,50 @@ from PyQt5.QtWidgets import (QWidget, QSlider, QLineEdit, QLabel, QPushButton, Q
 from PyQt5.QtCore import QThread,  QSize
 import os
 
+
 class Tab_items(Qt.QFrame):
-    def __init__(self):
+    def __init__(self, directory, title):
         super().__init__()
-        self.layout = Qt.QHBoxLayout(self)
+        self.dir = directory
+        self.title = title
+        self.layout = Qt.QVBoxLayout(self)
         self.setStyleSheet(""" QFrame { border-bottom: 1px solid gray; border-left: 1px solid gray; }""")
         self.setMinimumHeight(1)
         self.setLayout(self.layout)        
-        
+        self.setMinimumHeight(200)
+        self.setMinimumWidth(200)
+        self.initUI()
+
+    def initUI(self):
+        if self.dir:
+            list = os.listdir(self.dir + '/' + self.title)
+            print(list)
+            for i in list:
+                tab = Tab_btn(title=str(i))
+                self.layout.addWidget(tab)
+
+
 
 class Tab_btn(Qt.QFrame):
-    def __init__(self, title, icon=None, type=None, on_tab_click=None):
+    def __init__(self, title, icon=None, type=None, on_tab_click=None, directory=None):
         super().__init__()
         self.layout = Qt.QHBoxLayout(self)
         self.title = title
         self.icon = icon
         self.type = type
+        self.dir = directory
         self.on_tab_click = on_tab_click
-        self.active = True
+        self.active = False
 
-        self.btn =  QtWidgets.QPushButton()
+        self.btn = QtWidgets.QPushButton()
         self.Icon = QIcon()
         self.pix = QPixmap(str(self.icon))
         self.pix.scaled(QSize(13, 13))
         self.Icon.addPixmap(self.pix)   
         self.btn.setIcon(self.Icon)
         self.btn.setText(str(self.title))
-
-        self.items = Tab_items()
+        self.btn.clicked.connect(self.on_active)
+        self.items = Tab_items(directory=self.dir, title=self.title)
         
         self.btn.setFixedHeight(30)
         self.btn.setMinimumWidth(220)
@@ -56,7 +72,7 @@ class Tab_btn(Qt.QFrame):
         if self.type == "folder":
             self.icon_btn = QIcon_Button("left-a.png")
             self.layout.addWidget(self.icon_btn)
-            self.btn.clicked.connect(self.on_active)
+
         
         self.layout.addWidget(self.btn)
         self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
@@ -93,7 +109,7 @@ class Tab_btn(Qt.QFrame):
         elif e.type() == QtCore.QEvent.MouseButtonPress:
             if self.type == "folder":
                 print('folder')
-                self.on_active()    
+
 
         return QWidget.event(self, e)
 
@@ -104,35 +120,31 @@ class Tab_btn(Qt.QFrame):
             icon_btn = QIcon_Button("down-a.png")
             self.layout.insertWidget(0, icon_btn)
             self.active = False
-            
         else:
             self.layout.itemAt(0).widget().deleteLater()
             icon_btn = QIcon_Button("left-a.png")
             self.layout.insertWidget(0, icon_btn)
             self.active = True
+        self.on_tab_click(self.active)
 
-        self.on_tab_click(self.active)    
         
 
 class Tab(Qt.QFrame):
-    def __init__(self, title, icon=None, type=None, on_tab_open=None, on_tab_close=None):
+    def __init__(self, title, directory, icon=None, type=None, on_tab_open=None, on_tab_close=None):
         super().__init__()
         self.title = title
         self.icon = icon
         self.type = type
+        self.dir = directory
         self.on_tab_open = on_tab_open
         self.on_tab_close = on_tab_close
-        self.active = True
-        
-
+        self.active = False
         self.layout = Qt.QVBoxLayout(self)
-        self.tab_btn = Tab_btn(title=self.title, icon=self.icon, type=self.type, on_tab_click = self.on_tab_click)
-        self.tab_items = Tab_items()
+
+        self.tab_btn = Tab_btn(title=self.title, icon=self.icon, type=self.type, on_tab_click=self.on_tab_click, directory=self.dir)
         self.setContentsMargins(0, 0, 0, 0)
         
         self.layout.addWidget(self.tab_btn)
-
-
         self.setStyleSheet(""" QFrame { margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; } """)
         self.setMinimumHeight(44)
         self.setMinimumWidth(220)
@@ -143,9 +155,13 @@ class Tab(Qt.QFrame):
 
     def on_tab_click(self, active):
         if active:
-           self.on_tab_open(height=1000)
-        else : 
-            self.on_tab_close(height=1000)    
+            tab_items = Tab_items(directory=self.dir, title=self.title)
+            self.layout.addWidget(tab_items)
+            self.setMinimumHeight(200)
+        else:
+            self.layout.itemAt(1).widget().deleteLater()
+            self.setMinimumHeight(44)
+            return
 
 
 class Folder_list(Qt.QFrame):
@@ -158,8 +174,6 @@ class Folder_list(Qt.QFrame):
         self.extensions_image = ['img', 'jpeg', 'web', 'png', 'favicon']
         self.extensions_files = ['py', 'cpp', 'js', 'txt', 'json', ]
         self.setMinimumHeight(200)
-
-
         self.setFixedWidth(220)
 
         self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
@@ -171,15 +185,15 @@ class Folder_list(Qt.QFrame):
             for i in list:
                 self.height += 44
                 splited = i.split('.')
-                print(splited)
+
                 if len(splited) > 1 and splited[1] in self.extensions_files:
-                    item = Tab(title=i, icon="script-dir.png", type="file")
+                    item = Tab(title=i, icon="script-dir.png", type="file", directory='')
                     self.layout.addWidget(item)
                 elif len(splited) > 1 and splited[1] in self.extensions_image:
-                    item = Tab(title=i, icon="script-dir.png", type="image")
+                    item = Tab(title=i, icon="script-dir.png", type="image", directory='')
                     self.layout.addWidget(item)
                 elif os.path.isdir(i):
-                    second_item = Tab(title=i, icon="folder-dir.png", type="folder")  
+                    second_item = Tab(title=i, icon="folder-dir.png", type="folder", directory=self.dir)
                     self.layout.addWidget(second_item)   
             
             self.setFixedHeight(self.height)   

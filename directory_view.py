@@ -1,5 +1,5 @@
 
-from turtle import back, width
+
 from PyQt5 import Qt, QtCore
 
 import os, sys
@@ -93,10 +93,10 @@ class QDirectoryList(QFrame):
         for i in list:
             splited = i.split('.')
             if len(splited) > 1 and splited[1] in self.extensions_files:
-                item = QMargin(QDirectoryBtn( type='file', name=i), 10, 30, 10, 10)
+                item = QMargin(QDirectoryBtn(type='file', name=i), 10, 30, 10, 10)
                 self.layout.addWidget(item)
             elif len(splited) > 1 and splited[1] in self.extensions_image:
-                item = QMargin(QDirectoryBtn( type='image', name=i), 10, 30, 10, 10)
+                item = QMargin(QDirectoryBtn(type='image', name=i), 10, 30, 10, 10)
                 self.layout.addWidget(item)
             elif os.path.isdir(i):
                 second_item = QMargin(QDirectoryBtn('folder', i, open_folder= self.open_folder), 10, 30, 10, 10)  
@@ -120,7 +120,7 @@ class QCurrent_dir(QFrame):
         self.label.setStyleSheet(""" QLabel { color : #fff; border: 0px; } """)
         self.setStyleSheet(""" QFrame { border-bottom : 1px solid gray; } """)
 
-        self.back_btn = QIcon_Button(icon='icons/arrow-back.png', height=22, width=34, onClick=self.back_folder)
+        self.back_btn = QIcon_Button(icon='icons/arrow-back.png', height=22, width=34, onClick=self.back_folder, fill=False )
         
         self.layout.addWidget(self.back_btn)
         self.layout.addWidget(self.directory)
@@ -172,6 +172,7 @@ class QDirectory_view(QFrame):
         self.layout.insertWidget(0, self.directory)
 
     def back_folder(self):
+
         if self._current_directory != self._root_directory:
             folders = self._current_directory.split('/')
             folders.pop()
@@ -179,6 +180,7 @@ class QDirectory_view(QFrame):
             for i in folders:
                 i + '/'
                 string += i
+
             self._current_directory = string
             self.directory = QDirectory(dir=self._current_directory, open_folder=self.open_folder, back_folder=self.back_folder)
             self.layout.itemAt(0).widget().deleteLater()

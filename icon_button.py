@@ -26,12 +26,12 @@ class QIcon_Button(Qt.QPushButton):
 
         if self.fill:
             self.setStyleSheet("""QToolTip { 
-                           background-color: rgba(50, 50, 50, 1); 
+                           background-color: rgba(250, 250, 250, 1); 
                            color: white;
                            border-radius: 4px 4px 4px 4px; 
                            border: #fff solid 1px;
                            } 
-                           QPushButton { border: 0px; } """)         
+                           QPushButton {  background-color: rgba(250, 250, 250, 1); border: 0px; } """)
         else:
             self.setStyleSheet("""QToolTip { 
                            background-color: rgba(50, 50, 50, 1); 
@@ -39,7 +39,7 @@ class QIcon_Button(Qt.QPushButton):
                            border-radius: 4px 4px 4px 4px; 
                            border: #fff solid 1px;
                            } 
-                           QPushButton { border: 0px; background-color: rgba(50, 50, 50, 0); } """)
+                           QPushButton {  background-color: rgba(250, 250, 250, 0); border: 0px; background-color: rgba(50, 50, 50, 0); } """)
 
         self.Icon = QIcon()
         self.pix = QPixmap(str(self.icon))
