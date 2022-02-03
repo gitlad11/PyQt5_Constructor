@@ -20,7 +20,7 @@ class QContent_block(QtWidgets.QFrame):
         self.layout.addStretch()
         self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
-
+        
 
 class QContent(QtWidgets.QWidget):
     def __init__(self):

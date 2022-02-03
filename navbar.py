@@ -1,4 +1,6 @@
+from json import tool
 import sys
+from textwrap import fill
 
 from PyQt5 import Qt
 from PyQt5 import QtCore
@@ -7,6 +9,73 @@ from PyQt5.QtGui import QIcon, QPixmap, QCursor
 from PyQt5.QtWidgets import QLabel, QFrame, QApplication, QToolBar, QAction, QMenu, QMenuBar
 import ctypes
 from PyQt5 import QtWidgets
+from icon_button import QIcon_Button
+from button import QButton
+
+class QMenu_Action(QFrame):
+    def __init__(self, items):
+        super().__init__()
+        self.items = items
+        self.layout = Qt.QVBoxLayout(self)
+        self.setFixedWidth(200)
+        self.setMinimumHeight(200)
+        self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
+        self.layout.setSpacing(0)
+        self.initUI()
+
+     
+        
+    def initUI(self):
+        for index, item in enumerate(self.items):
+            item = QButton(title=item['name'], contain=False, color='red', height=20, width=180)
+            self.layout.addWidget(item)
+
+class QSetting_btn(QFrame):
+    def __init__(self, icon, toolTip):
+        super().__init__()
+        self.icon = icon
+        self.active = True
+        self.toolTip = toolTip
+        self.layout = Qt.QVBoxLayout(self)
+        self.tabs = [{ "name" : 'новый проект' }, { "name" : 'открыть проект' }, { 'name' : 'сохранить' }]
+        self.setFixedWidth(35)
+        self.setMinimumHeight(35)
+        self.btn = QIcon_Button(icon=self.icon, toolTip=self.toolTip, fill=True, onClick=self.on_active)
+        self.setStyleSheet(""" QFrame { background-color: rbga(250, 250 ,250, 1); color: #000;  padding: 0px 0px 0px 0px; border-radius: 4px 4px 4px 4px; } """)
+        self.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+        self.layout.addWidget(self.btn)
+        self.setLayout(self.layout)
+        self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft)
+
+    def on_active(self):
+        if self.active:
+            self.layout.itemAt(1).widget().deleteLater()
+            self.active = False
+        else:
+            item_list = QMenu_Action(self.tabs)
+            self.layout.addWidget(item_list)
+            self.setMinimumHeight(200)
+
+            self.active = True
+
+class QSettings(QFrame):
+    def __init__(self):
+        super().__init__()
+        self.layout = Qt.QHBoxLayout(self)
+        self.setContentsMargins(0, 0, 0, 0)
+
+        self.btn1 = QSetting_btn(icon='icons/settings.png', toolTip="Настройки")
+        self.btn2 = QSetting_btn(icon='icons/list.png', toolTip="Файл")
+        self.layout.addWidget(self.btn2)
+        self.layout.addWidget(self.btn1)
+        self.setFixedHeight(40)
+        self.setMinimumWidth(200)
+        self.layout.setSpacing(0)
+
+        self.layout.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignLeft)
+        
+        self.setLayout(self.layout)
 
 class QNav_Menu(QFrame):
     def __init__(self):
@@ -65,16 +134,16 @@ class QNavBar(QFrame):
     def __init__(self):
         super().__init__()
         self.layout = Qt.QHBoxLayout(self)
-        self.setStyleSheet(""" QFrame { background-color: rgba(20, 20, 20, 0.2); } """)
+       
 
-        bar = QMenuBar() 
-        file_menu = bar.addMenu('File')
-        file_edit = bar.addMenu('Edit') 
-
+        self.settings = QSettings()
         self.btn_list = QNav_Menu()
+        
+        self.layout.addWidget(self.settings)
         self.layout.addWidget(self.btn_list)
+        self.layout.setAlignment(QtCore.Qt.AlignCenter | QtCore.Qt.AlignCenter)
         self.setLayout(self.layout)
-        self.setFixedHeight(55)
+        self.setFixedHeight(60)
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)

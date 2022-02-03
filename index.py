@@ -4,6 +4,8 @@ from PyQt5 import Qt, QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPalette, QLinearGradient, QColor, QBrush
 from navbar import QNavBar
 from content import QContent
+from PyQt5.QtWidgets import QMenuBar, QAction
+
 
 
 class Index(QtWidgets.QWidget):
@@ -12,6 +14,7 @@ class Index(QtWidgets.QWidget):
         self.layout = Qt.QVBoxLayout(self)
 
         p = QPalette()
+        
 
         gradient = QLinearGradient(0, 0, 0, 700)
         self.color1 = QtGui.QColor(40, 40, 40)
@@ -28,7 +31,11 @@ class Index(QtWidgets.QWidget):
         self.layout.setAlignment(QtCore.Qt.AlignTop)
         self.layout.addWidget(self.navbar)
         self.layout.addWidget(self.content)
-
+        self.setLayout(self.layout)
+        
+    def close_application(self):
+        print("whooaaaa so custom!!!")
+        sys.exit()
 
 
 if __name__ == "__main__":

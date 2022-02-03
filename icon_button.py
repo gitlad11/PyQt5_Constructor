@@ -80,7 +80,7 @@ class Window(Qt.QWidget):
         self.layout.addWidget(self.btn3)
         self.layout.addWidget(self.btn4)
         self.setLayout(self.layout)
-
+        
 
 
 if __name__ == "__main__":
