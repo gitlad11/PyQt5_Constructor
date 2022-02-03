@@ -6,7 +6,7 @@ import sys
 
 
 class QIcon_Button(Qt.QPushButton):
-    def __init__(self, icon, toolTip=None, onClick=None, fill=False, height=None, width=None):
+    def __init__(self, icon, toolTip=None, onClick=None, fill=False, height=None, width=None, index=None):
         super().__init__()
         self.icon = icon
         self.toolTip = toolTip
@@ -14,11 +14,15 @@ class QIcon_Button(Qt.QPushButton):
         self.fill = fill
         self.height = height
         self.width = width
+        self.index = index
 
         self.setStyleSheet('border: 0px;')
         
         if self.onClick:
-            self.clicked.connect(self.onClick)
+            if self.index:
+                self.clicked.connect(lambda : self.onClick(self.index))
+            else:
+                self.clicked.connect(self.onClick)
 
         if self.toolTip:
             self.setToolTip(str(self.toolTip))
@@ -26,7 +30,7 @@ class QIcon_Button(Qt.QPushButton):
 
         if self.fill:
             self.setStyleSheet("""QToolTip { 
-                           background-color: rgba(250, 250, 250, 1); 
+                           background-color: rgba(40, 40, 40, 1); 
                            color: white;
                            border-radius: 4px 4px 4px 4px; 
                            border: #fff solid 1px;

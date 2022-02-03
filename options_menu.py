@@ -30,7 +30,7 @@ class NavBar(QFrame):
         self.layout.addWidget(self.btn2)
         self.layout.addWidget(self.btn3)
         self.layout.addWidget(self.btn4)
-
+        self.layout.addStretch()
 
 class Options_navbar(QFrame):
     def __init__(self):
@@ -47,7 +47,7 @@ class Options_navbar(QFrame):
 
         self.layout.addWidget(self.navbar)
         self.setLayout(self.layout)
-
+        self.layout.addStretch()
 
 class Options(QFrame):
 
@@ -55,7 +55,7 @@ class Options(QFrame):
         super().__init__(parent)
         self.setMinimumWidth(340)
         self.setMaximumWidth(340)
-        self.setMinimumHeight(700)
+        self.setMinimumHeight(800)
 
         self.o_menu = QMenuOption()
         self.o_menu1 = QMenuOption()
@@ -86,10 +86,11 @@ class Options(QFrame):
         layout2.addLayout(layout)
         layout2.addLayout(layout3)
         self.setLayout(layout2)
-
+        layout.addStretch()
+        layout2.addStretch()
 
 if __name__ == "__main__":
     app = Qt.QApplication(sys.argv)
     w = Options()
     w.show()
-    sys.exit(app.exec_())       
+    sys.exit(app.exec_())

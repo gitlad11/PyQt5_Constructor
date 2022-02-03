@@ -14,7 +14,7 @@ class Tab_items(Qt.QFrame):
         self.dir = directory
         self.title = title
         self.layout = Qt.QVBoxLayout(self)
-        self.setStyleSheet(""" QFrame { border-bottom: 1px solid gray; border-left: 1px solid gray; padding: 0px 0px 0px 0px; }""")
+        self.setStyleSheet(""" QFrame { border-bottom: 1px solid gray; border-left: 1px solid gray; padding: 0px 0px 0px 0px; border-radius: 0px; }""")
         self.setMinimumHeight(1)
         self.setLayout(self.layout)        
         self.setMinimumHeight(200)
@@ -48,14 +48,12 @@ class Tab_btn(Qt.QFrame):
         self.type = type
         self.dir = directory
         self.on_tab_click = on_tab_click
-        self.active = True
+        self.active = False
 
         self.btn = QtWidgets.QPushButton()
-        self.Icon = QIcon()
-        self.pix = QPixmap(str(self.icon))
-        self.pix.scaled(QSize(13, 13))
-        self.Icon.addPixmap(self.pix)   
-        self.btn.setIcon(self.Icon)
+
+
+        self.file_icon = QIcon_Button(self.icon, onClick=self.on_active)
         self.btn.setText(str(self.title))
         self.btn.clicked.connect(self.on_active)
         self.items = Tab_items(directory=self.dir, title=self.title)
@@ -74,15 +72,21 @@ class Tab_btn(Qt.QFrame):
             padding: 0px 0px 5px 0px;
             text-align: left;
             margin: 0px 0px 0px 0px;
-          
+            border: 0px;
             } """)
 
         if self.type == "folder":
-            self.icon_btn = QIcon_Button("left-a.png")
-            self.layout.addWidget(self.icon_btn)
+            self.Icon = QIcon()
+            self.pix = QPixmap(str("left-a.png"))
+            self.pix.scaled(QSize(13, 13))
+            self.Icon.addPixmap(self.pix)   
+            self.btn.setIcon(self.Icon)
+           
 
-        
+        self.layout.addWidget(self.file_icon)
         self.layout.addWidget(self.btn)
+        
+
         self.layout.setAlignment(QtCore.Qt.AlignTop | QtCore.Qt.AlignCenter)
         self.setLayout(self.layout)
 
@@ -93,7 +97,7 @@ class Tab_btn(Qt.QFrame):
         
     def event(self, e):
         if e.type() == QtCore.QEvent.Enter:
-             self.setStyleSheet(""" QFrame { background-color: rgba(150, 150, 150, 0.2);  } QPushButton { 
+             self.setStyleSheet(""" QFrame { background-color: rgba(150, 150, 150, 0.2);   border: 0px; } QPushButton { 
            background-color: rgba(10, 10, 10, 0);  
             font: 75 9pt "Microsoft YaHei UI";
             font-weight: bold;
@@ -101,10 +105,11 @@ class Tab_btn(Qt.QFrame):
             padding: 0px 0px 5px 0px;
             margin: 0px 0px 0px 0px;
             text-align: left;
+            border: 0px;
             } """)
             
         elif e.type() == QtCore.QEvent.Leave:
-             self.setStyleSheet(""" QFrame { background-color: rgba(10, 10, 10, 0);  } QPushButton { 
+             self.setStyleSheet(""" QFrame { background-color: rgba(10, 10, 10, 0);   border: 0px; } QPushButton { 
             background-color: rgba(10, 10, 10, 0); 
             font: 75 9pt "Microsoft YaHei UI";
             font-weight: bold;
@@ -112,7 +117,7 @@ class Tab_btn(Qt.QFrame):
             padding: 0px 0px 5px 0px;
             margin: 0px 0px 0px 0px;
             text-align: left;
-        
+            border: 0px;
             } """)
         elif e.type() == QtCore.QEvent.MouseButtonPress:
             if self.type == "folder":
@@ -124,15 +129,19 @@ class Tab_btn(Qt.QFrame):
     def on_active(self):
         
         if self.active:
-            self.layout.itemAt(0).widget().deleteLater()
-            icon_btn = QIcon_Button("down-a.png")
-            self.layout.insertWidget(0, icon_btn)
+            self.pix = QPixmap('left-a.png')
+            self.pix.scaled(QSize(13, 13))
+            self.Icon.addPixmap(self.pix)
+            self.btn.setIcon(self.Icon)
+
             self.active = False
             self.on_tab_click(False)
         else:
-            self.layout.itemAt(0).widget().deleteLater()
-            icon_btn = QIcon_Button("left-a.png")
-            self.layout.insertWidget(0, icon_btn)
+            self.pix = QPixmap('down-a.png')
+            self.pix.scaled(QSize(13, 13))
+            self.Icon.addPixmap(self.pix)
+            self.btn.setIcon(self.Icon)
+
             self.active = True
             self.on_tab_click(True)
 

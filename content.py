@@ -17,6 +17,7 @@ class QContent_block(QtWidgets.QFrame):
         self.layout.addWidget(self.con)
         self.layout.addWidget(self.directory)
         self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addStretch()
         self.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
 
@@ -35,3 +36,4 @@ class QContent(QtWidgets.QWidget):
         self.layout.addWidget(self.left_side)
         self.layout.addWidget(self.content)
         self.layout.addWidget(self.right_side)
+        self.layout.addStretch()

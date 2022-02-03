@@ -4,15 +4,16 @@ from PyQt5 import Qt
 from PyQt5 import QtCore
 from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon, QPixmap, QCursor
-from PyQt5.QtWidgets import QLabel, QFrame, QApplication
+from PyQt5.QtWidgets import QLabel, QFrame, QApplication, QToolBar, QAction, QMenu, QMenuBar
 import ctypes
-
+from PyQt5 import QtWidgets
 
 class QNav_Menu(QFrame):
     def __init__(self):
         super().__init__()
 
         self.layout = Qt.QHBoxLayout(self)
+           
         
         self.btn1 = Qt.QPushButton("")
         self.btn2 = Qt.QPushButton("")
@@ -66,6 +67,9 @@ class QNavBar(QFrame):
         self.layout = Qt.QHBoxLayout(self)
         self.setStyleSheet(""" QFrame { background-color: rgba(20, 20, 20, 0.2); } """)
 
+        bar = QMenuBar() 
+        file_menu = bar.addMenu('File')
+        file_edit = bar.addMenu('Edit') 
 
         self.btn_list = QNav_Menu()
         self.layout.addWidget(self.btn_list)

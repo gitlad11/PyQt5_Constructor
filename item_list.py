@@ -184,7 +184,7 @@ class QList(QFrame):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.layout = Qt.QVBoxLayout(self)
-        self.setFixedHeight(760)
+        self.setFixedHeight(900)
         self.setFixedWidth(270)
         self.list_widget = QList_Widget()
         self.navbar = QNavbar()
