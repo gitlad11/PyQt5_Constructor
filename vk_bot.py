@@ -32,7 +32,9 @@ sub_existance_question = ['кто знает', 'ты не знаешь', 'смы
 sub_existance_question_dark = ['что бы умереть', 'все бысмысленно', 'нет смысла', 'не смысла совсем']
 what_music = ["какую музыку ты слушаешь", 'какую музыку', " какую музыку посоветуешь ", 'рок', 'рэп', 'попсу', 'попса']
 familly = ['давай познакомимся', "познакомимся"]
+are_you_here = ["ты тут", 'ты где', 'ты сдесь', 'ты здесь']
 
+what_can_you_give = ['что ты можешь предложить', 'предложения', 'какие идеи']
 
 find_video_cards = ['покажи цены на видео карты', 'какие цены на видео карты', 'цены на видео карты', 'цены на видео адаптеры']
 
@@ -56,8 +58,8 @@ dal_list = [ "ты далбич", 'далбич', 'коля далбич' ]
 questions_answers = ["я плохо себя чуствую сегодня", 'все что я могу, это просто ждать']
 strong_lang_answers = ['это было лишнее', 'ты об этом пожалеешь', 'не разумно']
 existance_answers = ["не нужно искать смысл там где его нет", "нет смысла совсем, я слушаю музыку"]
-
-
+are_you_here_answers = ['всегда был здесь, то то нужно?', 'я все еще работаю, в чем дело?']
+what_can_you_give_answers = ['мое предложение это поиграть в угадай число от 1 до 5', 'могу прислать вам видео с ютуба']
 not_for_history = ['почему','почему плохо', 'что случилось', 'что', 'в чем дело', 'зачем', 'и все', 'а еще', 'еще',
  'а потом', 'кто знает', 'ты не знаешь', 'смысл в музыке', 'чтобы любить', 'в любви', 'чтобы любить', 'что бы умереть', 'все бысмысленно', 'нет смысла' ]
 
@@ -237,7 +239,56 @@ for event in longpoll.listen():
                         random_id=get_random_id(),
                         chat_id=event.chat_id,
                         message=result
-                    )  
+                    )
+            elif text in are_you_here:
+                if event.from_user:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        user_id=event.user_id,
+                        message= are_you_here_answers[random.randint(0, 1)]
+                    )
+                elif event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        chat_id=event.chat_id,
+                        message= are_you_here_answers[random.randint(0, 1)]
+                    )
+
+            elif text in what_can_you_give:
+                if event.from_user:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        user_id=event.user_id,
+                        message= what_can_you_give_answers[random.randint(0, 1)]
+                    )
+                elif event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        chat_id=event.chat_id,
+                        message= what_can_you_give_answers[random.randint(0, 1)]
+                    )
+
+            elif text in what_can_you_give:
+                result = parsing()
+                if event.from_user:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        user_id=event.user_id,
+                        message= what_can_you_give_answers[random.randint(0, 1)]
+                    )
+                elif event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        chat_id=event.chat_id,
+                        message= what_can_you_give_answers[random.randint(0, 1)]
+                    )                    
+                            
 
             elif text in how_are_you:
                 if event.from_user:
