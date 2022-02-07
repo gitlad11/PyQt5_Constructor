@@ -10,7 +10,7 @@ import random
 from translator import translate
 from wikipedi import question_to_wiki
 from parsing import parsing
-
+import psutil
 token = 'dc3b103e698b4bdf006c09d92b3296c90435943486d2ca23a04a9dda68360695e805f2dcbffdf2c2763aa'
 
 vk_session = vk_api.VkApi(token=token)
@@ -30,9 +30,11 @@ sub_questions = ['и все', 'что еще ты умеешь', 'что еще 
 existance_question = ["зачем мы сушествуем", "почему мы живем", "в чем смысл жизни", "зачем мы существуем", 'зачем жизнь']
 sub_existance_question = ['кто знает', 'ты не знаешь', 'смысл в музыке', 'чтобы любить', 'в любви', 'чтобы любить']
 sub_existance_question_dark = ['что бы умереть', 'все бысмысленно', 'нет смысла', 'не смысла совсем']
-what_music = ["какую музыку ты слушаешь", 'какую музыку', " какую музыку посоветуешь ", 'рок', 'рэп', 'попсу', 'попса']
+what_music = ["какую музыку ты слушаешь", 'ты слушаешь музыку', 'что за музыку ты слушаешь', 'какую музыку', " какую музыку посоветуешь ", 'рок', 'рэп', 'попсу', 'попса']
 familly = ['давай познакомимся', "познакомимся"]
 are_you_here = ["ты тут", 'ты где', 'ты сдесь', 'ты здесь']
+compliments = ['ты классный', 'ты молодец', 'ты класс', 'ты прикольный', 'молодец', 'красава']
+compliments_2 = ['прикольно', 'интересно', 'классно', 'класс']
 
 what_can_you_give = ['что ты можешь предложить', 'предложения', 'какие идеи']
 
@@ -44,7 +46,7 @@ sub_what_games = ['тебе понравилось', 'хорошая игра', 
 translate_questions = ['переведи', 'перевод']
 
 questions = ['почему','почему плохо', 'что случилось', 'что', 'в чем дело', 'зачем']
-strong_lang = ["ты ахуел", "иди нахуй", "нахуй иди", 'лох']
+strong_lang = ["ты ахуел", "иди нахуй", "нахуй иди", 'лох', 'долбаеб']
 
 bot_questions = ['ты бот', 'кто тебя создал', 'ты бот,кто тебя создал', 'кто твой создатель', 'ты бот, кто тебя создал']
 
@@ -60,8 +62,12 @@ strong_lang_answers = ['это было лишнее', 'ты об этом по�
 existance_answers = ["не нужно искать смысл там где его нет", "нет смысла совсем, я слушаю музыку"]
 are_you_here_answers = ['всегда был здесь, то то нужно?', 'я все еще работаю, в чем дело?']
 what_can_you_give_answers = ['мое предложение это поиграть в угадай число от 1 до 5', 'могу прислать вам видео с ютуба']
-not_for_history = ['почему','почему плохо', 'что случилось', 'что', 'в чем дело', 'зачем', 'и все', 'а еще', 'еще',
+not_for_history = ['почему', 'почему плохо', 'что случилось', 'что', 'в чем дело', 'зачем', 'и все', 'а еще', 'еще',
  'а потом', 'кто знает', 'ты не знаешь', 'смысл в музыке', 'чтобы любить', 'в любви', 'чтобы любить', 'что бы умереть', 'все бысмысленно', 'нет смысла' ]
+
+compliments_answers = ['у меня есть что показать, и это не все мои возможности', 'да я такой']
+
+compliments_answers_2 = ['да это прикольно', 'действительно интересно']
 
 lang_query = ['переведи на русский','переведи на французский','переведи на немецкий','переведи на английский']
 
@@ -119,6 +125,27 @@ for event in longpoll.listen():
                                 chat_id=event.chat_id,
                                 message=result
                             )
+        elif len(query) > 1 and query[0] == 'информация' and query[2] == 'компьютере':
+
+            cpu = psutil.cpu_percent()
+            print(cpu)
+
+            message = "Нагрузка на процессор: " + str(cpu) + '%'
+
+            if event.from_user:
+                vk.messages.send(
+                    peer_id=event.peer_id,
+                    random_id=get_random_id(),
+                    user_id=event.user_id,
+                    message=message
+                )
+            elif event.from_chat:
+                vk.messages.send(
+                    peer_id=event.peer_id,
+                    random_id=get_random_id(),
+                    chat_id=event.chat_id,
+                    message=message
+                )
         elif len(query) > 1 and query[0] == 'кто' and query[1] == 'такой':
             del query[0]
             del query[0]
@@ -338,6 +365,38 @@ for event in longpoll.listen():
                         message=strong_lang_answers[random.randint(0, 1)]
                     )
 
+            elif text in compliments:
+                if event.from_user:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        user_id=event.user_id,
+                        message=compliments_answers[random.randint(0, 1)]
+                    )
+                elif event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        chat_id=event.chat_id,
+                        message=compliments_answers[random.randint(0, 1)]
+                    )
+
+            elif text in compliments_2:
+                if event.from_user:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        user_id=event.user_id,
+                        message=compliments_answers_2[random.randint(0, 1)]
+                    )
+                elif event.from_chat:
+                    vk.messages.send(
+                        peer_id=event.peer_id,
+                        random_id=get_random_id(),
+                        chat_id=event.chat_id,
+                        message=compliments_answers_2[random.randint(0, 1)]
+                    )
+
             elif text in familly:
                 if event.from_user:
                     vk.messages.send(
@@ -473,14 +532,14 @@ for event in longpoll.listen():
                         peer_id = event.peer_id,
                         random_id = get_random_id(),
                         user_id=event.user_id,
-                        message="игра была сложная, но мне понравилось этим"
+                        message="игра была сложная, но мне она этим  понравилась "
                 )
                 elif event.from_chat: 
                     vk.messages.send( 
                         peer_id = event.peer_id,
                         random_id = get_random_id(),
                         chat_id=event.chat_id,
-                         message="игра была сложная, но мне понравилось этим"
+                         message="игра была сложная, но мне она этим понравилась"
                     )
             elif text in sub_what_games and not history[-1] in what_games:
                 if event.from_user:
